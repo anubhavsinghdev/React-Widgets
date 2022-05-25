@@ -4,7 +4,7 @@ import Search from "./components/Search";
 import Dropdown from "./components/Dropdown";
 import Translate from "./components/Translate";
 import Header from "./components/Header";
-import Route from "./components/Route";
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import './style.css';
 const items = [
   {
@@ -35,47 +35,31 @@ const options = [
   }
 ];
 
-// const showAccordion = () => {
-//   if (window.location.pathname === '/') {
-//     return <Accordion items={items} />
-//   }
-// }
-
-// const showList = () => {
-//   if (window.location.pathname === '/list') {
-//     return <Search />;
-//   }
-// }
-// const showDropdown = (selected, setSelected) => {
-//   if (window.location.pathname === '/dropdown') {
-//     return <Dropdown selected={selected} onSelectedChange={setSelected} options={options} />;
-//   }
-// }
-
-// const showTranslate = () => {
-//   if (window.location.pathname === '/translate') {
-//     return <Translate />
-//   }
-// }
-
 const App = () => {
   const [selected, setSelected] = useState(options[0]);
   return (
-    <div>
-      <Header />
-      <Route path="/">
-        <Accordion items={items} />
-      </Route>
-      <Route path="/list">
-        <Search />
-      </Route>
-      <Route path="/dropdown">
-        <Dropdown selected={selected} onSelectedChange={setSelected} options={options} />
-      </Route>
-      <Route path="/translate">
-        <Translate />
-      </Route>
-    </div>
+    <>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={
+            <Accordion items={items} />
+          } />
+          <Route path="/list" element={
+            <Search />
+          } />
+          <Route path="/dropdown" element={
+            <Dropdown selected={selected} onSelectedChange={setSelected} options={options} />
+          } />
+          <Route path="/translate" element={
+            <Translate />
+          } />
+          <Route path="/React-Widgets"
+            element={<Accordion items={items} />}
+          />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 };
 
